@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class FinalProject {
 
 	public static void main(String[] args) {
-		
 		// create instances of classes to use throughout FinalProject class
 		Scanner keyboard = new Scanner(System.in);
 		Player player = new Player();
@@ -17,7 +16,7 @@ public class FinalProject {
 		Map map = new Map();
 		
 		// call StartGame() to introduce game info/start new game or load game
-		startGame(keyboard, player, inventory);
+		startGame(keyboard, player, map, inventory);
 		
 		// track changes in while loop
 		boolean flag = true;
@@ -84,15 +83,15 @@ public class FinalProject {
 	        		inventory = newInventory;
 	        		System.out.println("\nINFO: The game has been restarted.\n");
 	        		// call StartGame() with new parameters
-	        		startGame(keyboard, player, inventory);
+	        		startGame(keyboard, player, map, inventory);
 	        		break;
 	        	case "save":
 	        		// save player & inventory to text file
-	        		saveGame(player, inventory);
+	        		saveGame(player, map, inventory);
 	        		break;
 	        	case "quit":
 	        		// call quit method (user asked to save game)
-	        		quitGame(keyboard, player, inventory);
+	        		quitGame(keyboard, player, map, inventory);
 	        		// break out of while loop
 	        		flag = false;
 	        		break;
@@ -107,7 +106,7 @@ public class FinalProject {
 	}
 	
 	// method to introduce game, get user name or load game data
-	private static void startGame(Scanner keyboard, Player player, Inventory inventory) {
+	private static void startGame(Scanner keyboard, Player player, Map map, Inventory inventory) {
 		// display introduction to game (show game rules)
 		System.out.println("WELCOME TO THE ESCAPE ROOM GAME!\n\n" + 
 				 "STORY: Using the items you find along your journey, you need to figure out a way to freedom.");
@@ -132,7 +131,7 @@ public class FinalProject {
         			break;
         		case "load":
         			// load a saved game
-        			loadGame(player, inventory);
+        			loadGame(player, map, inventory);
         			// break out of while loop
 	        		flag = false;
         			break;
@@ -161,10 +160,10 @@ public class FinalProject {
 	}
 	
 	// method to load game data from file
-	private static void loadGame(Player player, Inventory inventory) {
+	private static void loadGame(Player player, Map map, Inventory inventory) {
 		TextFile textFile = new TextFile();
 		// use Load() with player & inventory sent in as parameters
-		textFile.Load(player, inventory);
+		textFile.Load(player, map, inventory);
 		// recap of stats for returning player
 		System.out.print(player.displayStats(inventory));
 	}
@@ -211,49 +210,40 @@ public class FinalProject {
 				break;
 			case "r":
 				System.out.println("\nYou moved one space.");
-				map.setRoomDescription("\nROOM: In the cell you see the following -\n\t" + 
-						"In the nortwest corner is the bed you woke up in.\n\t" +
-						"A metal bar in the northeast corner of the room.\n\t" + 
-						"To the south you see old, rusty cell bars that keep you confined in the cell.");
+				// save roomString to variable so we always know which room player is in
+				map.setRoomString("r");
+				// call method using mapString to set the correct roomDescription
+				setRoomDescription(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "o":
 				System.out.println("\nYou moved one space.");
-				map.setRoomDescription("\nROOM: In the main hallway, you notice the following -\n\t" + 
-						"Stairs in the northeast corner of the room.\n\t" + 
-						"A black door with a GOLD LOCK to the south of the room.\n\t" + 
-						"An unlocked yellow door to the southwest of the room.");
+				map.setRoomString("o");
+				setRoomDescription(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "y":
 				System.out.println("\nYou moved one space.");
-				map.setRoomDescription("\nROOM: You look around the office and notice the following -\n\t" + 
-						"A messy desk a couple spaces west of you.\n\t" + 
-						"A chest with a SILVER LOCK to the south of the room.\n\t" + 
-						"An unlocked green door to the northwest corner of the room.");
+				map.setRoomString("y");
+				setRoomDescription(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "g":
 				System.out.println("\nYou moved one space.");
-				map.setRoomDescription("\nROOM: Inspecting the room you see the following -\n\t" + 
-						"A flashlight and a key on a shelf to the north of the room.\n\t" + 
-						"A wall with a large crack in the northeast corner of the room.\n\t" + 
-						"Seems like the wall was broken and resealed.");
+				map.setRoomString("g");
+				setRoomDescription(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "b":
 				System.out.println("\nYou moved one space.");
-				map.setRoomDescription("\nROOM: You enter a livingroom and notice the following -\n\t" +
-						"A large TV in the northeast corner of the room.\n\t" +
-						"A fluffy, well-used couch in the southeast corner of the room.\n\t" +
-						"There’s a purple door to the south of the room.");
+				map.setRoomString("b");
+				setRoomDescription(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "p":
 				System.out.println("\nYou moved one space.");
-				map.setRoomDescription("\nROOM: Looking around the bedroom you see the following -\n\t" + 
-						"A large luxurious bed to east of the room.\n\t" + 
-						"A bedside table in the southeast corner of the room.");
+				map.setRoomString("p");
+				setRoomDescription(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "cb":
@@ -386,6 +376,47 @@ public class FinalProject {
 		return positionToSet;
 	}
 	
+	// method that set the room description
+	public static void setRoomDescription(String mapString, Map map) {
+		switch (mapString) {
+			case "r":
+				map.setRoomDescription("\nROOM: In the cell you see the following -\n\t" + 
+						"In the nortwest corner is the bed you woke up in.\n\t" +
+						"A metal bar in the northeast corner of the room.\n\t" + 
+						"To the south you see old, rusty cell bars that keep you confined in the cell.");
+				break;
+			case "o":
+				map.setRoomDescription("\nROOM: In the main hallway, you notice the following -\n\t" + 
+						"Stairs in the northeast corner of the room.\n\t" + 
+						"A black door with a GOLD LOCK to the south of the room.\n\t" + 
+						"An unlocked yellow door to the southwest of the room.");
+				break;
+			case "y":
+				map.setRoomDescription("\nROOM: You look around the office and notice the following -\n\t" + 
+						"A messy desk a couple spaces west of you.\n\t" + 
+						"A chest with a SILVER LOCK to the south of the room.\n\t" + 
+						"An unlocked green door to the northwest corner of the room.");
+				break;
+			case "g":
+				map.setRoomDescription("\nROOM: Inspecting the room you see the following -\n\t" + 
+						"A flashlight and a key on a shelf to the north of the room.\n\t" + 
+						"A wall with a large crack in the northeast corner of the room.\n\t" + 
+						"Seems like the wall was broken and resealed.");
+				break;
+			case "b":
+				map.setRoomDescription("\nROOM: You enter a livingroom and notice the following -\n\t" +
+						"A large TV in the northeast corner of the room.\n\t" +
+						"A fluffy, well-used couch in the southeast corner of the room.\n\t" +
+						"There’s a purple door to the south of the room.");
+				break;
+			case "p":
+				map.setRoomDescription("\nROOM: Looking around the bedroom you see the following -\n\t" + 
+						"A large luxurious bed to east of the room.\n\t" + 
+						"A bedside table in the southeast corner of the room.");
+				break;
+		}
+	}
+	
 	// method to pick up items
 	private static void pickUp(Scanner keyboard, Inventory inventory, String mapString) {
 		// check if mapString matches any items in gameItems inventory
@@ -420,22 +451,22 @@ public class FinalProject {
 	}
 	
 	// method to save game data
-	private static void saveGame(Player player, Inventory inventory) {
+	private static void saveGame(Player player, Map map, Inventory inventory) {
 		// create instance of TextFile class
 		TextFile file = new TextFile();
 		// call the Save() through instance, send in data to save
-		file.Save(player, inventory);
+		file.Save(player, map, inventory);
 	}
 	
 	// method to exit the game
-	private static void quitGame(Scanner keyboard, Player player, Inventory inventory) {
+	private static void quitGame(Scanner keyboard, Player player, Map map, Inventory inventory) {
 		// ask the user to save game state to file
 		System.out.println("\nPROMPT: You will lose all current game progress.\n\t" + 
 				"Would you like to save the current game progress, 'yes' or 'no'?");
 		String answer = userNavigation(keyboard);
 		// if user answers anything but no, call the SaveGame()
 		if (!answer.equals("no")) {
-			saveGame(player, inventory);
+			saveGame(player, map, inventory);
 		}
 		System.out.print("\nINFO: The game has been terminated.");
 	}

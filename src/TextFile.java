@@ -20,7 +20,7 @@ public class TextFile {
 	private String workDirectory = System.getProperty("user.dir");
 		
 	// method used to write game data to a text file
-	public void Save(Player player, Inventory inventory) {
+	public void Save(Player player, Map map, Inventory inventory) {
 		// create instance of File class with save file in working directory
 		File file = new File(workDirectory + "/" + playerData);
 		
@@ -38,6 +38,8 @@ public class TextFile {
 			outputFile.println(player.getName());
 			outputFile.println(player.getXPosition());
 			outputFile.println(player.getYPosition());
+			// save identifying string of current room description
+			outputFile.println(map.getRoomString());
 			// save each item symbol from the inventory list
 			for (Item item: inventory.getInventory()) {
 				outputFile.println(item.getSymbol());
@@ -50,7 +52,7 @@ public class TextFile {
 	}
 	
 	// reads game data from a file
-	public void Load(Player player, Inventory inventory) {
+	public void Load(Player player, Map map, Inventory inventory) {
 		// load file named Save.txt in current directory
 		File file = new File(workDirectory + "/" + playerData);
 		
@@ -61,6 +63,8 @@ public class TextFile {
 			player.setName(inputFile.nextLine());
 			player.setXPosition(Integer.parseInt(inputFile.nextLine()));
 			player.setYPosition(Integer.parseInt(inputFile.nextLine()));
+			// set string as current room description
+			FinalProject.setRoomDescription(inputFile.nextLine(), map);
 			// set inventory while there is a next line
 			while (inputFile.hasNext()) {
 				Item item = new Item();

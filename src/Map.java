@@ -7,7 +7,7 @@ public class Map {
 	// game map with rooms, items, doors, start & end locations
 	private final String[][] roomMap = { // 14 columns (x) & 10 rows (y)
 		{"|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|"},
-		{"|", "|", "|", "|", "|", "|", "r", "r","ch", "|", "|", "|", "|", "|"},
+		{"|", "|", "|", "|", "|", "|", "r", " ","ch", "|", "|", "|", "|", "|"},
 		{"|", "rk"," ","cw","sk", "|", "r", "r", "r", "|", "|", " ","tv", "|"},
 		{"|", " ", " ", "|", "|", "|","cb","cb","cb", "|", "|", " ", " ", "|"},
 		{"|", "g", " ", "|", "|", "|", "o", "o", "o", "%","%b", "b","co", "|"},
@@ -23,6 +23,7 @@ public class Map {
 
 	// fields (member variables)
 	private String roomDescription;
+	private String roomString;
 	
 	// constants to know dimensions of the roomMap
 	private final int xLength = roomMap[0].length;
@@ -35,6 +36,15 @@ public class Map {
 	
 	public void setRoomDescription(String newRoomDescription) {
 		roomDescription = newRoomDescription;
+	}
+	
+	// roomString get/set methods
+	public String getRoomString() {
+		return roomString;
+	}
+	
+	public void setRoomString(String newRoomString) {
+		roomString = newRoomString;
 	}
 	
 	// map get method
