@@ -9,49 +9,47 @@ import java.util.Scanner;
 public class FinalProject {
 
 	public static void main(String[] args) {
-		// create instances of classes to use throughout FinalProject class
+		// create instances to use throughout FinalProject class
 		Scanner keyboard = new Scanner(System.in);
 		Player player = new Player();
 		Inventory inventory = new Inventory();
 		Map map = new Map();
 		
-		// call StartGame() to introduce game info/start new game or load game
+		// introduce game info/start new game or load game
 		startGame(keyboard, player, map, inventory);
 		
-		// track changes in while loop
 		boolean flag = true;
-		// show menu of options
+		// loop to show menu of options
 		while (flag) {
 			// variables to track changes in player position
 			int newPosition, positionToSet;
 			
-			// prompt user for input 
+			// prompt user for input (return input)
 	    	System.out.println("\nPROMPT: What would you like to do now?");
-			
-	    	// call method to return user's input
 	    	String inputFromUser = userNavigation(keyboard);
-        	// match user input to case, running block of code from selected case
+	    	
+        	// match user input to case
         	switch (inputFromUser) {
 	        	case "north":
-	        		// get new position & get map string, if a wall or locked door don't change position
+	        		// get new position & get map string (if a wall or locked door don't change position)
 	        		newPosition = map.goNorth(player.getYPosition());
 	        		positionToSet = moveYPosition(map, player, newPosition, keyboard, inventory);
 	        		player.setYPosition(positionToSet);
 	        		break;
 	        	case "east":
-	        		// get new position & get map string, if a wall or locked door don't change position
+	        		// get new position & get map string (if a wall or locked door don't change position)
 	        		newPosition = map.goEast(player.getXPosition());
 	        		positionToSet = moveXPosition(map, player, newPosition, keyboard, inventory);
 	        		player.setXPosition(positionToSet);
 	        		break;
 	        	case "south":
-	        		// get new position & get map string, if a wall or locked door don't change position
+	        		// get new position & get map string (if a wall or locked door don't change position)
 	        		newPosition = map.goSouth(player.getYPosition());
 	        		positionToSet = moveYPosition(map, player, newPosition, keyboard, inventory);
 	        		player.setYPosition(positionToSet);
 	        		break;
 	        	case "west":
-	        		// get new position & get map string, if a wall or locked door don't change position
+	        		// get new position & get map string (if a wall or locked door don't change position)
 	        		newPosition = map.goWest(player.getXPosition());
 	        		positionToSet = moveXPosition(map, player, newPosition, keyboard, inventory);
 	        		player.setXPosition(positionToSet);
@@ -61,11 +59,11 @@ public class FinalProject {
 	        		System.out.println(map.getRoomDescription());
 	        		break;
 	        	case "inventory":
-	        		// display all items in your current inventory
+	        		// display all items in player's inventory
 	        		itemInventory(inventory);
 	        		break;
 	        	case "help":
-	        		// display commands user can use to navigate within the game
+	        		// display all commands user can use to navigate within the game
 	        		System.out.println("\nINFO: Use the following commands to navigate within the game:\n\t" +  
 	            			"use 'north', 'east', 'south', or 'west' to move around,\n\t" + 
 	        				"'info' to display current room description\n\t" +
@@ -82,15 +80,15 @@ public class FinalProject {
 	        		player = newPlayer;
 	        		inventory = newInventory;
 	        		System.out.println("\nINFO: The game has been restarted.\n");
-	        		// call StartGame() with new parameters
+	        		// call StartGame() to restart the game with new instances
 	        		startGame(keyboard, player, map, inventory);
 	        		break;
 	        	case "save":
-	        		// save player & inventory to text file
+	        		// save player info, current inventory & room description to text file
 	        		saveGame(player, map, inventory);
 	        		break;
 	        	case "quit":
-	        		// call quit method (user asked to save game)
+	        		// terminate the game (user asked to save game)
 	        		quitGame(keyboard, player, map, inventory);
 	        		// break out of while loop
 	        		flag = false;
@@ -101,38 +99,32 @@ public class FinalProject {
 	        		break;
         	}
 		}
-    	// close the instance of Scanner
     	keyboard.close();
 	}
 	
-	// method to introduce game, get user name or load game data
+	// method to introduce game, get user's name, or load game data
 	private static void startGame(Scanner keyboard, Player player, Map map, Inventory inventory) {
-		// display introduction to game (show game rules)
 		System.out.println("WELCOME TO THE ESCAPE ROOM GAME!\n\n" + 
 				 "STORY: Using the items you find along your journey, you need to figure out a way to freedom.");
 		
-		// track changes in while loop
 		boolean flag = true;
 		// show menu of options
 		while (flag) {
-			// ask user to start a new game or load a saved game
+			// ask user to start a new game or load a saved game (return input)
 			System.out.println("\nPROMPT: Would you like to start a new game?\n\t" + 
 					"If so, type 'new', or type 'load' to load a saved game:");
-			
-			// call method to return user's input
         	String inputFromUser = userNavigation(keyboard);
-        	// match user input to case, running block of code from selected case
+        	
+        	// match user input to case
         	switch (inputFromUser) {
         		case "new":
         			// start a new game
         			newGame(keyboard, player);
-        		    // break out of while loop
 	        		flag = false;
         			break;
         		case "load":
         			// load a saved game
         			loadGame(player, map, inventory);
-        			// break out of while loop
 	        		flag = false;
         			break;
         		default:
@@ -143,13 +135,12 @@ public class FinalProject {
 		}
 	}
 	
-	// method to start a brand new game
+	// start a brand new game (get user's name & introduce plot of game)
 	private static void newGame(Scanner keyboard, Player player) {
 		// get users name to use throughout game
 		System.out.println("\nPROMPT: What is your name?");
-		// use setPlayerName() to save player's name
 	    player.setName(keyboard.nextLine());
-	    // introduce the first room to the user
+	    // describe game plot & describe initial room to the user
 		System.out.println("\nSTORY: You wake up in a locked cell, cold and confused. It's a bit hard to move your hands.\n\t" +
 				"When you look down, you notice your hands are cuffed with an attached RED LOCK.\n\t" + 
 				"You are not sure how you got here. The only thing you do know is that you need to find a way out!\n" +
@@ -159,49 +150,49 @@ public class FinalProject {
 				"To the south you see old, rusty cell bars that keep you confined in the cell.");
 	}
 	
-	// method to load game data from file
+	// load game data from text file
 	private static void loadGame(Player player, Map map, Inventory inventory) {
 		TextFile textFile = new TextFile();
-		// use Load() with player & inventory sent in as parameters
+		// load player info, room description & inventory
 		textFile.Load(player, map, inventory);
-		// recap of stats for returning player
+		// recap game stats for returning player
 		System.out.print(player.displayStats(inventory));
 	}
 	
-	// method for user input for navigation using Scanner
+	// user input for navigation using Scanner
 	private static String userNavigation(Scanner keyboard) {
-    	// use trim() & toLowerCase() so switch can use user input to match to case
+    	// use trim() & toLowerCase() to match a case in a switch loop
     	String inputFromUser = keyboard.nextLine().trim().toLowerCase();
 		return inputFromUser;
 	}
 	
-	// method to display information/items in the new player position
+	// display info/items when position changes in Y direction
 	private static int moveYPosition(Map map, Player player, int newPosition, Scanner keyboard, Inventory inventory) {
 		int currentPosition = player.getYPosition();
-		// display string from the map from new player position
+		// get string from map from new player position
 		String mapString = map.returnMapString(player.getXPosition(), newPosition);
-		// call mapInteraction to tell user if they hit a wall, got a new item, etc
+		// determine if position changed (get new item, unlock door/chest, etc), else hit wall (don't change position)
 		int positionToSet = mapInteraction(currentPosition, mapString, newPosition, keyboard, inventory, map);
 		return positionToSet;
 	}
 	
-	// method to display information/items in the new player position
+	// display info/items when position changes in X direction
 	private static int moveXPosition(Map map, Player player, int newPosition, Scanner keyboard, Inventory inventory) {
 		int currentPosition = player.getXPosition();
-		// display string from the map from new player position
+		// get string from map from new player position
 		String mapString = map.returnMapString(newPosition, player.getYPosition());
-		// call mapInteraction to tell user if they hit a wall, got a new item, etc
+		// determine if position changed (get new item, unlock door/chest, etc), else hit wall (don't change position)
 		int positionToSet = mapInteraction(currentPosition, mapString, newPosition, keyboard, inventory, map);
 		return positionToSet;
 	}
 	
-	// method to interact with map: add new items, hit walls, go through doors, get room descriptions, etc
+	// player interaction with map: new items, hit walls, locked/unlock doors, room descriptions, etc.
 	private static int mapInteraction(int currentPosition, String mapString, int newPosition, Scanner keyboard, Inventory inventory, Map map) {
 		int positionToSet = 0;
 		switch (mapString) {
 			case "|":
 				System.out.println("\nYou can’t move any further, there's a wall in the way.");
-				// don't change the player's position since you can't go through the wall
+				// don't change player's position (can't go through wall)
 				positionToSet = currentPosition;
 				break;
 			case " ":
@@ -210,40 +201,33 @@ public class FinalProject {
 				break;
 			case "r":
 				System.out.println("\nYou moved one space.");
-				// save roomString to variable so we always know which room player is in
-				map.setRoomString("r");
-				// call method using mapString to set the correct roomDescription
-				setRoomDescription(mapString, map);
+				// save room description (can be accessed when needed)
+				setRoomString(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "o":
 				System.out.println("\nYou moved one space.");
-				map.setRoomString("o");
-				setRoomDescription(mapString, map);
+				setRoomString(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "y":
 				System.out.println("\nYou moved one space.");
-				map.setRoomString("y");
-				setRoomDescription(mapString, map);
+				setRoomString(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "g":
 				System.out.println("\nYou moved one space.");
-				map.setRoomString("g");
-				setRoomDescription(mapString, map);
+				setRoomString(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "b":
 				System.out.println("\nYou moved one space.");
-				map.setRoomString("b");
-				setRoomDescription(mapString, map);
+				setRoomString(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "p":
 				System.out.println("\nYou moved one space.");
-				map.setRoomString("p");
-				setRoomDescription(mapString, map);
+				setRoomString(mapString, map);
 				positionToSet = newPosition;
 				break;
 			case "cb":
@@ -376,7 +360,16 @@ public class FinalProject {
 		return positionToSet;
 	}
 	
-	// method that set the room description
+	// set the roomString (to access the room description when needed)
+	public static void setRoomString(String mapString, Map map)
+	{
+		// save roomString to variable (always know which room player is in)
+		map.setRoomString(mapString);
+		// call method using mapString to set the correct roomDescription
+		setRoomDescription(mapString, map);
+	}
+	
+	// set the room description String
 	public static void setRoomDescription(String mapString, Map map) {
 		switch (mapString) {
 			case "r":
@@ -417,7 +410,7 @@ public class FinalProject {
 		}
 	}
 	
-	// method to pick up items
+	// pick up items (add to player's inventory)
 	private static void pickUp(Scanner keyboard, Inventory inventory, String mapString) {
 		// check if mapString matches any items in gameItems inventory
 		if (inventory.itemInGameItems(mapString)) {
@@ -427,38 +420,36 @@ public class FinalProject {
 			System.out.println("\nYou have found a " + item.getName() + "!\n\nPROMPT: Would you like add the " + 
 					item.getName() + " to your inventory, 'yes' or 'no'?");
 			String inputFromUser = userNavigation(keyboard);
-			// if user answers yes, call the Inventory()
+			// if user answers yes, add item to inventory
 			if (inputFromUser.equals("yes")) {
-				// now add the item to player's inventory list
 				inventory.addItemToInventory(item);
 				System.out.println("\nINVENTORY: You have added the " + item.getName() + " to your inventory!\n\t" + 
 						item.getItemInfo());
 			}
-			else {
+			else {  // leave item behind
 				System.out.println("\nINVENTORY: You have decided to leave the " + item.getName() + 
 						" behind. You might need it on your journey.");
 			}
 		}
-		else {
+		else {  // edge case
 			System.out.println("\nThere are no items to pick up here!");
 		}
 	}
 	
-	// method to view all items in inventory
+	// view all items in inventory
 	private static void itemInventory(Inventory inventory) {
 		// returns string by calling displayAllItems() in Inventory class
 		System.out.print("\nINVENTORY: You have the following items -\n" + inventory.displayAllItems());
 	}
 	
-	// method to save game data
+	// save game data (to text file)
 	private static void saveGame(Player player, Map map, Inventory inventory) {
-		// create instance of TextFile class
 		TextFile file = new TextFile();
 		// call the Save() through instance, send in data to save
 		file.Save(player, map, inventory);
 	}
 	
-	// method to exit the game
+	// terminate the game (asks user to save game data)
 	private static void quitGame(Scanner keyboard, Player player, Map map, Inventory inventory) {
 		// ask the user to save game state to file
 		System.out.println("\nPROMPT: You will lose all current game progress.\n\t" + 
@@ -470,5 +461,5 @@ public class FinalProject {
 		}
 		System.out.print("\nINFO: The game has been terminated.");
 	}
-
+	
 }
