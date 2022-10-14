@@ -1,16 +1,15 @@
-// created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
-// purpose: demonstrate your ability to work in a team while creating an Object Oriented program in Java.
-
-// stores data items player can pick up throughout the game
+/* Created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
+ * Purpose: Demonstrate your ability to work in a team while creating an Object Oriented program in Java.
+ */
+// Stores data of items a player can pick up throughout the game
 public class Item {
 	
-	// fields (member variables)
+	// Fields (member variables)
 	private String name;
 	private String symbol;
 	private String description;
 	private String itemInfo;
-	
-	// constructors for the Item class
+	// Constructor
 	public Item() {
 		name = "";
 		symbol = "";
@@ -18,7 +17,7 @@ public class Item {
 		itemInfo = "";
 	}
 	
-	// overloaded constructor with parameters for each field
+	// Overloaded constructor with parameters for each field
 	public Item(String newName, String newSymbol, String newDescription, String newItemInfo) {
 		name = newName;
 		symbol = newSymbol;
@@ -26,7 +25,7 @@ public class Item {
 		itemInfo = newItemInfo;
 	}
 	
-	// item name get/set methods
+	// Item name get/set methods
 	public String getName() {
 		return name;
 	}
@@ -35,7 +34,7 @@ public class Item {
 		name = newName;
 	}
 	
-	// symbol for item get/set methods
+	// item symbol get/set methods
 	public String getSymbol() {
 		return symbol;
 	}
@@ -44,7 +43,7 @@ public class Item {
 		symbol = newSymbol;
 	}
 	
-	// symbol for item get/set methods
+	// Item description get/set methods
 	public String getDescription() {
 		return description;
 	}
@@ -53,7 +52,7 @@ public class Item {
 		description = newDescription;
 	}
 	
-	// symbol for item get/set methods
+	// Item information get/set methods
 	public String getItemInfo() {
 		return itemInfo;
 	}
@@ -62,10 +61,9 @@ public class Item {
 		itemInfo = newItemInfo;
 	}
 	
-	// display all fields of item as formatted string
+	// display all item fields as formatted string
 	public String displayItemInfo() {
 		String item = name + ", " + symbol + ", " + description + ", " + itemInfo;
 		return item;
 	}
-	
 }

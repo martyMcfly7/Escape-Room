@@ -1,31 +1,31 @@
-// created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
-// purpose: demonstrate your ability to work in a team while creating an Object Oriented program in Java.
-
-// stores data for the current player of the game
+/* Created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
+ * Purpose: Demonstrate your ability to work in a team while creating an Object Oriented program in Java.
+ */
+// Stores data for the current player of the game
 public class Player {
 	
-	// fields (member variables)
+	// Fields (member variables)
 	private String playerName;
-	// this is the player position in roomMap array (x,y)
+	// Player's position in gameMap[row][column]
 	private int xPosition;
 	private int yPosition;
 	
-	// constructors for the Player class
+	// Constructors
 	public Player() {
 		playerName = "";
-		// starting position within jail cell
+		// Starting position for new game
 		xPosition = 6;
 		yPosition = 1;
 	}
 	
-	// overloaded constructor with parameters for each field
+	// Overloaded constructor with parameters for each field
 	public Player(String newPlayerName, int newXPosition, int newYPosition) {
 		playerName = newPlayerName;
 		xPosition = newXPosition;
 		yPosition = newYPosition;
 	}
 	
-	// player name get/set methods
+	// Player name get/set methods
 	public String getName() {
 		return playerName;
 	}
@@ -34,7 +34,7 @@ public class Player {
 		playerName = newPlayerName;
 	}
 	
-	// x coordinate position get/set methods
+	// Player position (x, y) get/set methods
 	public int getXPosition() {
 		return xPosition;
 	}
@@ -43,7 +43,6 @@ public class Player {
 		xPosition = newXPosition;
 	}
 	
-	// y coordinate position get/set methods
 	public int getYPosition() {
 		return yPosition;
 	}
@@ -52,10 +51,9 @@ public class Player {
 		yPosition = newYPosition;
 	}
 	
-	// display basic information for returning player
+	// Display returning player stats as formatted string
 	public String displayStats(Inventory inventory) {
 		return "\nWELCOME BACK!\n\nPlayer Stats -\n\tName: " + getName() +
 				"\nItems in Inventory -\n" + inventory.displayAllItems();
 	}
-	
 }

@@ -1,20 +1,17 @@
-// created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
-// purpose: demonstrate your ability to work in a team while creating an Object Oriented program in Java.
-
-// required to use an ArrayList
+/* Created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
+ * Purpose: Demonstrate your ability to work in a team while creating an Object Oriented program in Java.
+ */
 import java.util.ArrayList;
 import java.util.List;
-
-// stores data about items in player's inventory and all possible items
+// Stores data of all game items and items in player's inventory
 public class Inventory extends Item {
 
-	// fields (member variables)
-	private List<Item> inventory = new ArrayList<Item>();
-	private List<Item> gameItems = new ArrayList<Item>();
-	
-	// constructors for the Inventory class
+	// Fields (member variables)
+	private List<Item> inventory = new ArrayList<Item>(); // Player's inventory
+	private List<Item> gameItems = new ArrayList<Item>(); // All the items in the game
+	// Constructor
 	public Inventory() {
-		// constants for each item: name, symbol, description & item info for user
+		// Constants for each item: name, symbol, description & item info for user
 		final Item chisel = new Item("Chisel", "ch", "\tA sharp tool for cutting or carving.", 
 				"This CHISEL will be useful for breaking and cutting through objects.");
 		final Item newspaper = new Item("Newspaper", "np", "A Local newspaper with recent events.", 
@@ -31,7 +28,6 @@ public class Inventory extends Item {
 				"Use the BLUE KEY on the matching lock.");
 		final Item goldKey = new Item("Gold Key", "gk", "A key for a matching GOLD LOCK.", 
 				"Use the GOLD KEY on the matching lock.");
-		// add all items to gameItems list
 		gameItems.add(chisel);
 		gameItems.add(newspaper);
 		gameItems.add(hammer);
@@ -42,15 +38,15 @@ public class Inventory extends Item {
 		gameItems.add(goldKey);
 	}
 	
-	// method to add an Item to player's inventory
+	// Add an Item to player's inventory
 	public void addItemToInventory(Item item) {
 		inventory.add(item);
 	}
 	
-	// method to determine if a specific item is in the inventory List
-	public boolean itemInPlayerInventory(String itemSymbol) {
+	// Determine if a specific item is in the inventory List
+	public boolean isItemInPlayerInventory(String itemSymbol) {
         for (int item = 0; item < inventory.size(); item++) {
-        	// if item's symbol from inventory equals parameter string
+        	// If item's symbol from inventory equals parameter string
             if (inventory.get(item).getSymbol().equals(itemSymbol)) {
                 return true;
             }
@@ -58,10 +54,9 @@ public class Inventory extends Item {
         return false;
     }
 	
-	// method to determine if a specific item is in the gameItems List
-	public boolean itemInGameItems(String itemSymbol) {
+	// Determine if a mapString is an item in the gameItems List
+	public boolean isItemInGameItems(String itemSymbol) {
         for (int item = 0; item < gameItems.size(); item++) {
-         	// if item's symbol from gameItems equals parameter string
             if (gameItems.get(item).getSymbol().equals(itemSymbol)) {
                 return true;
             }
@@ -69,11 +64,10 @@ public class Inventory extends Item {
         return false;
     }
 	
-	// method to get a specific item from the gameItems List
+	// Get a specific item from the gameItems List
 	public Item getSpecificGameItem(String itemSymbol) {
 		Item newItem = new Item();
 		for (Item item: gameItems) {
-			// if item's symbol equals parameter string
 			if (item.getSymbol().equals(itemSymbol)) {
 				newItem = item;
 			}
@@ -81,7 +75,7 @@ public class Inventory extends Item {
 		return newItem;
 	}
 	
-	// inventory get/set methods
+	// Inventory get/set methods
 	public List<Item> getInventory() {
 		return inventory;
 	}
@@ -90,14 +84,12 @@ public class Inventory extends Item {
 		inventory = newInventory;
 	}
 	
-	// method to display all items in the inventory
+	// Display all items in the player's inventory as formatted string
 	public String displayAllItems() {
 		String itemsInInventory = "\tItem:\t\tDescription:\n";
-		// for every item in inventory, get the following...
 		for (Item item: inventory) {
 			itemsInInventory += "\t" + item.getName() + "\t" + item.getDescription() + "\n";
 		}
 		return itemsInInventory;
 	}
-	
 }

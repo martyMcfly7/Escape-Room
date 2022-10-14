@@ -1,11 +1,11 @@
-// created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
-// purpose: demonstrate your ability to work in a team while creating an Object Oriented program in Java.
-
-// stores data about locations, items & rooms within the game map
+/* Created by Victor Ortiz & Diana Nguyen  CS142  11/14/19
+ * Purpose: Demonstrate your ability to work in a team while creating an Object Oriented program in Java.
+ */
+// Stores data of walls, items, and room descriptions 
 public class Map {
 	
-	// game map with rooms, items, doors, start & end locations
-	private final String[][] roomMap = { // 14 columns (x) & 10 rows (y)
+	// Game map (14 columns (x-axis) & 10 rows (y-axis))
+	private final String[][] gameMap = {
 		{"|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|"},
 		{"|", "|", "|", "|", "|", "|", "r", " ","ch", "|", "|", "|", "|", "|"},
 		{"|", "rk"," ","cw","sk", "|", "r", "r", "r", "|", "|", " ","tv", "|"},
@@ -17,19 +17,21 @@ public class Map {
 		{"|", " ","ct", " ", " ", "|", "|","ed", "|", "|", "|", " ","bt", "|"},
 		{"|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|"}
 	};
-	//  map symbols:
-	//  |: wall boundaries, st: start point, ch: chisel, cb: cell bars, ed: end point,
-	//  #: random items, ~: unlocked doors, bd: bed, ds: desk, cw: chip wall, %: stairs
-
-	// fields (member variables)
+	/* Map symbols:
+	 * gameMap[1][6] == [y-axis][x-axis]: starting position for new game
+	 * "|" == wall boundaries, single letter == room description,
+	 * double letter == item to pickup/item to interact with
+	 * "%" == stairs, "~" == door, "ed" == end of game
+	 */
+	// Fields (member variables)
 	private String roomDescription;
 	private String roomString;
 	
-	// constants to know dimensions of the roomMap
-	private final int xLength = roomMap[0].length;
-	private final int yLength = roomMap.length;
+	// Constants to know dimensions of gameMap
+	private final int xLength = gameMap[0].length;
+	private final int yLength = gameMap.length;
 	
-	// roomDescription get/set methods
+	// Room description get/set methods
 	public String getRoomDescription() {
 		return roomDescription;
 	}
@@ -38,7 +40,7 @@ public class Map {
 		roomDescription = newRoomDescription;
 	}
 	
-	// roomString get/set methods
+	// Room string get/set methods
 	public String getRoomString() {
 		return roomString;
 	}
@@ -47,12 +49,12 @@ public class Map {
 		roomString = newRoomString;
 	}
 	
-	// map get method
+	// Map get method
 	public String[][] getMap() {
-		return roomMap;
+		return gameMap;
 	}
 	
-	// get dimensions of map
+	// Get dimensions of map
 	public int getXLength() {
 		return xLength;
 	}
@@ -61,31 +63,26 @@ public class Map {
 		return yLength;
 	}
 	
-	// methods to update player position
+	// Update player positions (must pre-increment/pre-decrement)
 	public int goNorth(int newYPosition) {
-		// pre-decrement position
 		return --newYPosition;
 	}
 	
 	public int goEast(int newXPosition) {
-		// pre-increment position
 		return ++newXPosition;
 	}
 	
 	public int goSouth(int newYPosition) {
-		// pre-increment position
 		return ++newYPosition;
 	}
 	
 	public int goWest(int newXPosition) {
-		// pre-decrement position
 		return --newXPosition;
 	}
 	
-	// method to return string from the map at a specified (x, y) position
+	// Return string from the map at specified (x, y) position
 	public String returnMapString(int xPosition, int yPosition) {
-		String item = roomMap[yPosition][xPosition]; // roomMap[row][column]
+		String item = gameMap[yPosition][xPosition]; // gameMap[row][column]
 		return item;
 	}
-	
 }
