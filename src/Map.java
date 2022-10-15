@@ -24,21 +24,11 @@ public class Map {
 	 * "%" == stairs, "~" == door, "ed" == end of game
 	 */
 	// Fields (member variables)
-	private String roomDescription;
 	private String roomString;
 	
 	// Constants to know dimensions of gameMap
 	private final int xLength = gameMap[0].length;
 	private final int yLength = gameMap.length;
-	
-	// Room description get/set methods
-	public String getRoomDescription() {
-		return roomDescription;
-	}
-	
-	public void setRoomDescription(String newRoomDescription) {
-		roomDescription = newRoomDescription;
-	}
 	
 	// Room string get/set methods
 	public String getRoomString() {

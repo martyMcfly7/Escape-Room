@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class FinalProject {
 
 	public static void main(String[] args) {
-		// create class instances
+		// Create class instances
 		Scanner keyboard = new Scanner(System.in);
 		Player player = new Player();
 		Inventory inventory = new Inventory();
@@ -43,7 +43,7 @@ public class FinalProject {
 	        		player.setXPosition(positionToSet);
 	        		break;
 	        	case "info":
-	        		System.out.println(map.getRoomDescription());
+	        		System.out.println(getRoomDescription(map, player));
 	        		break;
 	        	case "inventory":
 	        		itemInventory(inventory);
@@ -165,32 +165,32 @@ public class FinalProject {
 			case "r":
 				System.out.println("\nYou moved one space.");
 				// Save room description (can be accessed when needed)
-				setRoomString(mapString, map);
+				map.setRoomString("r");
 				positionToSet = newPosition;
 				break;
 			case "o":
 				System.out.println("\nYou moved one space.");
-				setRoomString(mapString, map);
+				map.setRoomString("o");
 				positionToSet = newPosition;
 				break;
 			case "y":
 				System.out.println("\nYou moved one space.");
-				setRoomString(mapString, map);
+				map.setRoomString("y");
 				positionToSet = newPosition;
 				break;
 			case "g":
 				System.out.println("\nYou moved one space.");
-				setRoomString(mapString, map);
+				map.setRoomString("g");
 				positionToSet = newPosition;
 				break;
 			case "b":
 				System.out.println("\nYou moved one space.");
-				setRoomString(mapString, map);
+				map.setRoomString("b");
 				positionToSet = newPosition;
 				break;
 			case "p":
 				System.out.println("\nYou moved one space.");
-				setRoomString(mapString, map);
+				map.setRoomString("p");
 				positionToSet = newPosition;
 				break;
 			case "cb":
@@ -315,51 +315,53 @@ public class FinalProject {
 		return positionToSet;
 	}
 	
-	// Set the roomString (to access the room description when needed)
-	public static void setRoomString(String mapString, Map map) {
-		map.setRoomString(mapString);
-		setRoomDescription(mapString, map);
+	// Gets the current roomString
+	public static String getRoomDescription(Map map, Player player) {
+		String RoomDescription = matchRoomString(map.getRoomString());
+		return RoomDescription;
 	}
 	
-	// Set the room description String
-	public static void setRoomDescription(String mapString, Map map) {
+	// Using the roomString gets the correct room description
+	public static String matchRoomString(String mapString) {
+		String roomDescription = "";
 		switch (mapString) {
 			case "r":
-				map.setRoomDescription("\nROOM: In the cell you see the following -\n\t" + 
+				roomDescription = "\nROOM: In the cell you see the following -\n\t" + 
 						"In the nortwest corner is the bed you woke up in.\n\t" +
 						"A metal bar in the northeast corner of the room.\n\t" + 
-						"To the south you see old, rusty cell bars that keep you confined in the cell.");
+						"To the south you see old, rusty cell bars that keep you confined in the cell.";
 				break;
 			case "o":
-				map.setRoomDescription("\nROOM: In the main hallway, you notice the following -\n\t" + 
+				roomDescription = "\nROOM: In the main hallway, you notice the following -\n\t" + 
 						"Stairs in the northeast corner of the room.\n\t" + 
 						"A black door with a GOLD LOCK to the south of the room.\n\t" + 
-						"An unlocked yellow door to the southwest of the room.");
+						"An unlocked yellow door to the southwest of the room.";
 				break;
 			case "y":
-				map.setRoomDescription("\nROOM: You look around the office and notice the following -\n\t" + 
+				roomDescription = "\nROOM: You look around the office and notice the following -\n\t" + 
 						"A messy desk a couple spaces west of you.\n\t" + 
 						"A chest with a SILVER LOCK to the south of the room.\n\t" + 
-						"An unlocked green door to the northwest corner of the room.");
+						"An unlocked green door to the northwest corner of the room.";
 				break;
 			case "g":
-				map.setRoomDescription("\nROOM: Inspecting the room you see the following -\n\t" + 
+				roomDescription = "\nROOM: Inspecting the room you see the following -\n\t" + 
 						"A flashlight and a key on a shelf to the north of the room.\n\t" + 
 						"A wall with a large crack in the northeast corner of the room.\n\t" + 
-						"Seems like the wall was broken and resealed.");
+						"Seems like the wall was broken and resealed.";
 				break;
 			case "b":
-				map.setRoomDescription("\nROOM: You enter a livingroom and notice the following -\n\t" +
+				roomDescription = "\nROOM: You enter a livingroom and notice the following -\n\t" +
 						"A large TV in the northeast corner of the room.\n\t" +
 						"A fluffy, well-used couch in the southeast corner of the room.\n\t" +
-						"There’s a purple door to the south of the room.");
+						"There’s a purple door to the south of the room.";
 				break;
 			case "p":
-				map.setRoomDescription("\nROOM: Looking around the bedroom you see the following -\n\t" + 
+				roomDescription = "\nROOM: Looking around the bedroom you see the following -\n\t" + 
 						"A large luxurious bed to east of the room.\n\t" + 
-						"A bedside table in the southeast corner of the room.");
+						"A bedside table in the southeast corner of the room.";
 				break;
 		}
+		return roomDescription;
 	}
 	
 	// Pick up items (add to player's inventory)

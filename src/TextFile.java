@@ -51,7 +51,7 @@ public class TextFile {
 			player.setName(inputFromFile.nextLine());
 			player.setXPosition(Integer.parseInt(inputFromFile.nextLine()));
 			player.setYPosition(Integer.parseInt(inputFromFile.nextLine()));
-			FinalProject.setRoomDescription(inputFromFile.nextLine(), map);
+			map.setRoomString(inputFromFile.nextLine());
 			// Set inventory items while there is a next line
 			while (inputFromFile.hasNext()) {
 				Item item = new Item();
